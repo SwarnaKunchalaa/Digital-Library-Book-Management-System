@@ -1,6 +1,7 @@
 package com.ajackus.library.controller;
 
 //import com.ajackus.library.DigitalLibraryBookManagementSystemApplication;
+import com.ajackus.library.DigitalLibraryBookManagementSystemApplication;
 import com.ajackus.library.models.Book;
 import com.ajackus.library.exceptions.InvalidProductException;
 import com.ajackus.library.services.LibraryService;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 @RestController
 @RequestMapping("/library")
@@ -73,9 +76,11 @@ public class LibraryController {
     }
 
     @PostMapping("/exit")
-    public ResponseEntity<String> exitApplication() {
-        DigitalLibraryBookManagementSystemApplication.shutdown();
-        return ResponseEntity.ok("Application is shutting down...");
+    public void  exitApplication() {
+        if (DigitalLibraryBookManagementSystemApplication.context != null) {
+            DigitalLibraryBookManagementSystemApplication.context.close();
+        }
+        System.exit(0);
     }
 
 }
