@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/library")
+@RequestMapping("/books")
 public class LibraryController {
 
     LibraryService libraryService;
@@ -49,8 +49,8 @@ public class LibraryController {
        return ResponseEntity.status(HttpStatus.OK).body(book);
     }
 
-    @GetMapping("/find/{id}/{title}")
-    public ResponseEntity<Book> getBookByIdAndTitle(@PathVariable Long id, @PathVariable String title) {
+    @GetMapping()
+    public ResponseEntity<Book> getBookByIdAndTitle(@RequestParam("id") long id, @RequestParam("title") String title) {
         Book book = libraryService.getBookByIdAndTitle(id, title);
         if(book==null){
             throw new NullPointerException("Book not found");
